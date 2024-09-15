@@ -17,7 +17,12 @@ const storage = multer.diskStorage({
   },
   filename: (req, file, cb) => {
     const uniqueSuffix = `${Date.now()}-${Math.round(Math.random() * 1E9)}`;
-    cb(null, `${uniqueSuffix}-${file.originalname}`);
+    const fileName = `${uniqueSuffix}-${file.originalname}`;
+    const fullFilePath = path.join(uploadDir, fileName);
+    
+    console.log(`File saved at: ${fullFilePath}`); // Log the file path
+
+    cb(null, fileName); // Store just the file name
   },
 });
 
